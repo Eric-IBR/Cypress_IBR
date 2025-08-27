@@ -1,0 +1,7 @@
+# Cache do Cypress
+cypress/screenshots/
+cypress/videos/
+
+# Dependências
+node_modules/
+
