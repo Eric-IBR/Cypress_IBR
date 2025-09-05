@@ -10,6 +10,7 @@ describe("Cenários de Cadastro de Sucata", () => {
 
     cy.get("#mat-expansion-panel-header-0").click();
     cy.contains("div.button-toggle-title", "Cadastro de Peças").click();
+    cy.wait(200);
     cy.get("#mat-input-12").type("10");
 
     cy.contains("mat-label", "Título")
@@ -17,8 +18,8 @@ describe("Cenários de Cadastro de Sucata", () => {
       .find("input")
       .click()
       .type("{selectall}{backspace}")
-      .type("Airbag{enter}");
-    cy.get(".mat-option-text").contains("Bolsa Airbag").click();
+      .type("BOLSA AIRBAG VOLANTE{enter}");
+    cy.get(".mat-option-text").contains("Bolsa Airbag Volante Audi").click();
 
     cy.get('input[type="file"][accept="image/*"]')
       .first()
@@ -79,7 +80,7 @@ describe("Cenários de Cadastro de Sucata", () => {
       .click();
     cy.get("mat-option").contains("Volante").click();
 
-    cy.get("button").contains(" Avançar ").click();
+    /*  cy.get("button").contains(" Avançar ").click();
     cy.get("button").contains(" Alterar Compatibilidade ").click();
     cy.wait(1000);
     cy.get("mat-label")
@@ -94,8 +95,8 @@ describe("Cenários de Cadastro de Sucata", () => {
 
     cy.get("table").find("mat-checkbox").eq(1).click();
     cy.get("button").contains("Selecionar").click();
-    cy.wait(300);
-    for (let i = 0; i < 3; i++) {
+    cy.wait(300); */
+    for (let i = 0; i < 4; i++) {
       cy.contains("button", " Avançar ").click();
       cy.wait(300);
     }

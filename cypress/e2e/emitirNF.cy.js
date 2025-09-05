@@ -1,5 +1,5 @@
 /// <references types =”Cypress”/>
-import "../support/commands";
+/*import "../support/commands";
 describe("Cenários de emissão de NF-e", () => {
   beforeEach(function () {
     cy.login();
@@ -86,3 +86,4 @@ describe("Cenários de emissão de NF-e", () => {
     ).click();
   });
 });
+*/

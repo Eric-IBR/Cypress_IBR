@@ -29,7 +29,7 @@ Cypress.Commands.add("login", function () {
     "https://beta-desmonte.ibrsoftweb.com.br/account/signin?redirectFrom=%2Ferp%2Fdashboard"
   );
   cy.get("#mat-input-0").type("eric.araujo@ibrsoft.com.br");
-  cy.get("#mat-input-1").type("Eric@123");
+  cy.get("#mat-input-1").type("Teste@2025");
   cy.get('[type="submit"').click();
   //cy.get('#mat-dialog-title-0').should('have.text', 'Lembrete de Vencimento Contas a Pagar / Receber')
   //cy.get('.mat-dialog-actions > .mat-focus-indicator').click()
@@ -47,58 +47,79 @@ Cypress.Commands.add("loginSisdev", function () {
 });
 
 Cypress.Commands.add("cadSucata", function () {
-  cy.get("#mat-expansion-panel-header-0").click();
-  cy.contains("div.button-toggle-title", "Cadastro de Sucatas").click();
+  const fixtureFile = "sample.png";
+    cy.get("#mat-expansion-panel-header-0").click();
+    cy.contains("div.button-toggle-title", "Cadastro de Sucatas").click();
 
-  cy.contains("mat-label", "Grupo de Peças") // encontra o label
-    .parents(".mat-form-field") // sobe até o container do campo
-    .find("mat-icon") // busca os ícones dentro dele
-    .contains("search") // filtra pelo texto do ícone
-    .click(); // clica no ícone
+    // Usando cy.selectFile() (recomendado - Cypress v12+)
 
-  cy.get("#search").type("Carro{enter}");
-  cy.get(":nth-child(1) > .cdk-column-actions > .mat-focus-indicator").click();
+    // Interage diretamente com o input file (sem clicar no botão)
+    cy.get('input[type="file"][accept="image/*"]').selectFile(
+      `cypress/fixtures/${fixtureFile}`,
+      { force: true }
+    );
 
-  cy.contains("mat-label", "Fornecedor") // encontra o label
-    .parents(".mat-form-field") // sobe até o container do campo
-    .find("mat-icon") // busca os ícones dentro dele
-    .contains("search") // filtra pelo texto do ícone
-    .click(); // clica no ícone
+    // Valida que a imagem foi carregada
+    cy.get(".waste-images-content img", { timeout: 10000 })
+      .should("have.attr", "src")
+      .and((src) => {
+        expect(src).not.to.contain("product-without-image.png");
+      });
 
-  cy.get("#search").type("IBR Teste{enter}");
-  cy.get(":nth-child(1) > .cdk-column-actions > .mat-focus-indicator").click();
+    cy.contains("mat-label", "Grupo de Peças") // encontra o label
+      .parents(".mat-form-field") // sobe até o container do campo
+      .find("mat-icon") // busca os ícones dentro dele
+      .contains("search") // filtra pelo texto do ícone
+      .click(); // clica no ícone
 
-  //cy.get("#providers").type("Teste");
-  cy.get("#purchaseValue").type("800,00");
+    cy.get("#search").type("Carro Teste{enter}");
+    cy.wait(600);
+    cy.contains("td", /^Carro TESTE$/)
+      .parents("tr")
+      .dblclick();
 
-  cy.get("#mat-chip-list-input-0").click();
-  cy.get("span").contains("BMW").click();
-  //cy.get("#brand").type("CY");
-  cy.get("#mat-chip-list-input-1").click(); //CAMPO MODELO
-  cy.get("span").contains("I3").click();
+    cy.contains("mat-label", "Fornecedor") // encontra o label
+      .parents(".mat-form-field") // sobe até o container do campo
+      .find("mat-icon") // busca os ícones dentro dele
+      .contains("search") // filtra pelo texto do ícone
+      .click(); // clica no ícone
 
-  cy.get("#mat-chip-list-input-2").click();
-  cy.get("span").contains("2015").click();
+    cy.get("#search").type("IBR Teste{enter}");
+    cy.contains("td", /^IBR Teste$/)
+      .parents("tr")
+      .dblclick();
 
-  cy.get("#mat-chip-list-input-3").click();
-  cy.get("span").contains("0.6 REX CONNECTED 5P ELÉCTRICO").click();
+    //cy.get("#providers").type("Teste");
+    cy.get("#purchaseValue").type("800,00");
 
-  cy.placaSucataAleatoria("#licensePlate");
-  cy.get("#mat-input-8").type("A");
-  cy.contains("mat-option", "Amarelo").click();
-  cy.get("#chassis").type("12345678910123456");
-  cy.get("#lot").type("4225");
-  cy.get("#vehicleCertificate").type("TESTE");
-  cy.get("#locations").type("{enter}", { force: true });
-  cy.contains("div.mr-3.ml-3", "Teste IAGO").should("be.visible").click();
-  cy.contains("div.mr-3.ml-3", " TESTE-3 ").should("be.visible").click();
-  cy.contains("button", " Salvar ").should("be.visible").click();
-  cy.wait(700);
-  cy.get("button").contains("Cancelar").click({ force: true });
+    cy.get("#mat-chip-list-input-0").click();
+    cy.get("span").contains("BMW").click();
+    //cy.get("#brand").type("CY");
+    cy.get("#mat-chip-list-input-1").type("I3"); //CAMPO MODELO
+    cy.get("span").contains("i3").click();
+
+    cy.get("#mat-chip-list-input-2").click();
+    cy.get("span").contains("2015").click();
+
+    cy.get("#mat-chip-list-input-3").type("0.6 Rex Full 5p Eléctrico");
+    cy.get("span").contains("0.6 Rex Full 5p Eléctrico").click();
+
+    cy.placaSucataAleatoria("#licensePlate");
+    cy.get("#mat-input-8").type("A");
+    cy.contains("mat-option", "Amarelo").click();
+    cy.get("#chassis").type("12345678910123456");
+    cy.get("#lot").type("4225");
+    cy.get("#vehicleCertificate").type("TESTE");
+    cy.get("#locations").type("{enter}", { force: true });
+    cy.contains("div.mr-3.ml-3", "Teste IAGO").should("be.visible").click();
+    cy.contains("div.mr-3.ml-3", " TESTE-3 ").should("be.visible").click();
+    cy.contains("button", " Salvar ").should("be.visible").click();
+    cy.wait(700);
+    cy.get("button").contains("Cancelar").click({ force: true });
 });
 
 Cypress.Commands.add("clica3pontinhos", function () {
-  cy.contains("mat-card-title", "BMW I3 2015")
+  cy.contains("mat-card-title", "BMW i3 2015")
     .parents("mat-card")
     .within(() => {
       cy.get("mat-icon").contains("more_vert").click();

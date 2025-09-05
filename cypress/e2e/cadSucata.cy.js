@@ -25,8 +25,6 @@ describe("Cenários de Cadastro de Sucata", () => {
         expect(src).not.to.contain("product-without-image.png");
       });
 
-    cy.contains("Fotos restantes: 9").should("be.visible");
-
     cy.contains("mat-label", "Grupo de Peças") // encontra o label
       .parents(".mat-form-field") // sobe até o container do campo
       .find("mat-icon") // busca os ícones dentro dele

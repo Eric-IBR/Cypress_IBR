@@ -10,7 +10,7 @@ describe("Cenários Desmembramento", () => {
     cy.visit("https://beta-desmonte.ibrsoftweb.com.br/erp/waste");
     cy.contains("Não desmembrada").should("be.visible");
 
-    cy.contains("mat-card-title", "BMW I3 2015")
+    cy.contains("mat-card-title", "BMW i3 2015")
       .parents("mat-card")
       .within(() => {
         cy.get("mat-icon").contains("plumbing").click();
@@ -84,7 +84,7 @@ describe("Cenários Desmembramento", () => {
     cy.contains("mat-icon", "construction").click();
     cy.contains("Status alterado com sucesso").should("be.visible");
     cy.wait(700);
-    cy.contains("mat-card-title", "BMW I3 2015")
+    cy.contains("mat-card-title", "BMW i3 2015")
       .parents("mat-card")
       .within(() => {
         cy.get("mat-chip").should("contain.text", "Em desmembramento");
@@ -95,7 +95,7 @@ describe("Cenários Desmembramento", () => {
     cy.contains("mat-icon", "check_circle").click();
     cy.contains("Status alterado com sucesso").should("be.visible");
     cy.wait(700);
-    cy.contains("mat-card-title", "BMW I3 2015")
+    cy.contains("mat-card-title", "BMW i3 2015")
       .parents("mat-card")
       .within(() => {
         cy.get("mat-chip").should("contain.text", "Desmembrada");
@@ -119,7 +119,7 @@ describe("Cenários Desmembramento", () => {
     cy.visit("https://beta-desmonte.ibrsoftweb.com.br/erp/waste");
     cy.contains("Não desmembrada").should("be.visible");
 
-    cy.contains("mat-card-title", "BMW I3 2015")
+    cy.contains("mat-card-title", "BMW i3 2015")
       .parents("mat-card")
       .within(() => {
         cy.get("mat-icon").contains("plumbing").click();
@@ -165,7 +165,7 @@ describe("Cenários Desmembramento", () => {
     cy.get('input[formcontrolname="description"]')
       .first()
       .type("Automatizado{enter}");
-    cy.contains("Aro BMW I3 2015").click();
+    cy.contains("Aro BMW i3 2015").click();
     cy.get("button").contains("Selecionar").click();
 
     cy.get("button").contains("Salvar").click();
@@ -176,7 +176,10 @@ describe("Cenários Desmembramento", () => {
       .click();
 
     cy.get("#search").type("Teste 5");
-    cy.get("button").find("mat-icon").contains("navigate_next").click();
+    cy.wait(600);
+    cy.contains("td", /^Teste 5$/)
+      .parents("tr")
+      .dblclick();
     cy.contains("mat-icon", "done").click();
     cy.contains("Adicionado com sucesso.").should("be.visible");
     cy.contains("F8 - Finalizar Venda").click();
