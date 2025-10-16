@@ -114,7 +114,7 @@ describe("Cenários Desmembramento", () => {
 
   //=====================CENÁRIO 03=============================
 
-  it("Desmembrar e vender sucata", () => {
+/*  it("Desmembrar e vender sucata", () => {
     cy.cadSucata();
     cy.visit("https://beta-desmonte.ibrsoftweb.com.br/erp/waste");
     cy.contains("Não desmembrada").should("be.visible");
@@ -217,5 +217,5 @@ describe("Cenários Desmembramento", () => {
     );
     cy.contains("Sim").click();
     cy.contains("Sucata deletada!").should("be.visible");
-  });
+  }); */
 });

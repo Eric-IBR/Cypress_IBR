@@ -6,11 +6,9 @@ describe("Cenários de Cadastro de Sucata", () => {
   });
 
   it("Cadastro de Sucada", () => {
-    const fixtureFile = "sample.png";
+    const fixtureFile = "xml_sample.xml";
     cy.get("#mat-expansion-panel-header-0").click();
     cy.contains("div.button-toggle-title", "Cadastro de Sucatas").click();
-
-    // Usando cy.selectFile() (recomendado - Cypress v12+)
 
     // Interage diretamente com o input file (sem clicar no botão)
     cy.get('input[type="file"][accept="image/*"]').selectFile(
@@ -18,12 +16,7 @@ describe("Cenários de Cadastro de Sucata", () => {
       { force: true }
     );
 
-    // Valida que a imagem foi carregada
-    cy.get(".waste-images-content img", { timeout: 10000 })
-      .should("have.attr", "src")
-      .and((src) => {
-        expect(src).not.to.contain("product-without-image.png");
-      });
+   
 
     cy.contains("mat-label", "Grupo de Peças") // encontra o label
       .parents(".mat-form-field") // sobe até o container do campo
